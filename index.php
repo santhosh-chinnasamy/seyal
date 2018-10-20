@@ -42,13 +42,13 @@ $rows = $db->query($sql);
 
       <!-- Modal body -->
       <div class="modal-body">
-<form action="">
+<form action="add.php" method="post">
   <div class="form-group">
   <label for="task">Task</label>
   <input type="text" name="task" class="form-control" required>
   </div>
   
-  <input type="submit" class="btn btn-primary" value="add task">
+  <input type="submit" class="btn btn-primary" name="submit" value="add task">
 
 </form>
 </div>
