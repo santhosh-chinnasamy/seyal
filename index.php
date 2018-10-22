@@ -13,8 +13,8 @@ $rows = $db->query($sql);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -27,7 +27,7 @@ $rows = $db->query($sql);
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <table class="table">
-          <button type="button" class="btn btn-success" data-target="#myModal" data-toggle="modal">Add Task</button>
+          <button type="button" class="btn btn-success" data-target="#myModal" data-toggle="modal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Task</button>
           <button type="button" class="btn btn-default float-right">Print</button>
           <br />
           <div class="modal" id="myModal">
@@ -80,9 +80,10 @@ $rows = $db->query($sql);
               <td>
                 <?php echo $row['task'] ?>
               </td>
-              <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-warning">Edit</a></td>
-              <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Delete</a></td>
+              <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-warning "><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></td>
+              <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger "><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
             </tr>
+            
             <?php endwhile; ?>
           </tbody>
         </table>
