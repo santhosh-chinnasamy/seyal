@@ -2,10 +2,10 @@
 <html lang="en">
 <?php 
 include 'db.php';
-
 $sql = "select * from tasks";
 $rows = $db->query($sql);
 ?>
+
 <head>
   <title>To-Do | PHP</title>
   <!-- Required meta tags -->
@@ -29,39 +29,41 @@ $rows = $db->query($sql);
         <table class="table">
           <button type="button" class="btn btn-success" data-target="#myModal" data-toggle="modal">Add Task</button>
           <button type="button" class="btn btn-default float-right">Print</button>
-          <br /> 
-          <div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Add Task</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-<form action="add.php" method="post">
-  <div class="form-group">
-  <label for="task">Task</label>
-  <input type="text" name="task" class="form-control" required>
-  </div>
-  
-  <input type="submit" class="btn btn-primary" name="submit" value="add task">
-
-</form>
-</div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
           <br />
+          <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Task</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form action="add.php" method="post">
+                    <div class="form-group">
+                      <label for="task">Task</label>
+                      <input type="text" name="task" class="form-control" required>
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" name="submit" value="add task">
+
+                  </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br />
+
+
           <thead>
             <tr>
               <th>#</th>
@@ -71,11 +73,15 @@ $rows = $db->query($sql);
           <tbody>
             <tr>
               <?php while ($row = $rows->fetch_assoc()) : ?>
-              
-              <td scope="row"><?php echo $row['id']; ?></td>
-              <td><?php echo $row['task'] ?></td>
-              <td><a href="" class="btn btn-warning">Edit</a></td>
-              <td><a href="" class="btn btn-danger">Delete</a></td>
+
+              <td scope="row">
+                <?php echo $row['id']; ?>
+              </td>
+              <td>
+                <?php echo $row['task'] ?>
+              </td>
+              <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-warning">Edit</a></td>
+              <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Delete</a></td>
             </tr>
             <?php endwhile; ?>
           </tbody>
