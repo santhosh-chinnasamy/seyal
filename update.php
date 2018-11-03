@@ -3,12 +3,12 @@
 <?php 
 include 'db.php';
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 $sql = "select * from tasks where id='$id'";
 $rows = $db->query($sql);
 $row = $rows->fetch_assoc();
 if (isset($_POST['submit'])) {          
-    $task = $_POST['task'];
+    $task = htmlspecialchars($_POST['task']);
     $sql2 = "update tasks set task= '$task' where id='$id'";
     $db->query($sql2);
     header('Location: index.php');
