@@ -2,7 +2,15 @@
 <html lang="en">
 <?php 
 include 'db.php';
-$sql = "select * from tasks";
+//pagination
+$page = (isset($_GET['page']) ? $_GET['page'] : 1 );
+$perPage = (isset($_GET['per-page']) && ($_GET['per-page']) <= 50 ? $_GET['per-page'] : 5);
+$start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+
+$sql = "select * from tasks limit " . $start . ", " . $perPage . " ";
+$total = $db->query("select * from tasks")->num_rows;
+$pages = $total / $perPage;
+
 $rows = $db->query($sql);
 ?>
 
@@ -87,6 +95,11 @@ $rows = $db->query($sql);
             <?php endwhile; ?>
           </tbody>
         </table>
+        <ul class="pagination justify-content-center">
+        <?php for ($i = 1; $i <= $pages; $i++) : ?>
+        <li class="page-item"><a class="page-link" href="?page=<?php echo $i;?>"><?php echo $i; ?></a></li>
+        <?php endfor; ?>
+        </ul>
       </div>
     </div>
   </div>
