@@ -7,11 +7,11 @@ $id = (int)$_GET['id'];
 $sql = "select * from tasks where id='$id'";
 $rows = $db->query($sql);
 $row = $rows->fetch_assoc();
-if (isset($_POST['submit'])) {          
-    $task = htmlspecialchars($_POST['task']);
-    $sql2 = "update tasks set task= '$task' where id='$id'";
-    $db->query($sql2);
-    header('Location: index.php');
+if (isset($_POST['submit'])) {
+  $task = htmlspecialchars($_POST['task']);
+  $sql2 = "update tasks set task= '$task' where id='$id'";
+  $db->query($sql2);
+  header('Location: index.php');
 }
 ?>
 
@@ -35,16 +35,16 @@ if (isset($_POST['submit'])) {
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-                  <form method="post">
-                    <div class="form-group">
-                      <label for="task">Task</label>
-                      <input type="text" name="task" class="form-control" value="<?php echo $row['task']; ?>" required>
-                    </div>
+        <form method="post">
+          <div class="form-group">
+            <label for="task">Task</label>
+            <input type="text" name="task" class="form-control" value="<?php echo $row['task']; ?>" required>
+          </div>
 
-                    <input type="submit" class="btn btn-success" name="submit" value="update task">
-
-                  </form>
-                </div>
+          <input type="submit" class="btn btn-success" name="submit" value="update task">
+          <a href="index.php" class="btn btn-danger">Cancel</a>
+        </form>
+      </div>
 
 
 
