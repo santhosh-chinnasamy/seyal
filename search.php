@@ -2,16 +2,12 @@
 <html lang="en">
 <?php 
 include 'db.php';
-//pagination
-$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
-$perPage = (isset($_GET['per-page']) && (int)$_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 5);
-$start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+if (isset($_POST['search'])) {
+    $searchTerm = htmlspecialchars($_POST['search']);
+    $sql = "select * from tasks where task like '%$searchTerm%'";
+    $rows = $db->query($sql);
+}
 
-$sql = "select * from tasks limit " . $start . ", " . $perPage . " ";
-$total = $db->query("select * from tasks")->num_rows;
-$pages = ceil($total / $perPage);
-
-$rows = $db->query($sql);
 ?>
 
 <head>
@@ -34,6 +30,7 @@ $rows = $db->query($sql);
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
+        
         <table class="table table-hover ">
           <button type="button" class="btn btn-success" data-target="#myModal" data-toggle="modal"> <i class="fa fa-plus"
               aria-hidden="true"></i> Add Task</button>
@@ -81,7 +78,13 @@ $rows = $db->query($sql);
           </form>
         </div>
         <br>
+        <?php if (mysqli_num_rows($rows) < 1) : ?>
+        <h2 class="text-danger text-center">No matches found</h2>
+        <a href="index.php" class="btn btn-primary align-content-center">Go Back</a>
+
+        <?php else : ?>
           <thead>
+            
             <tr>
               <th>#</th>
               <th class="col-md-10">Task</th>
@@ -106,6 +109,7 @@ $rows = $db->query($sql);
             <?php endwhile; ?>
           </tbody>
         </table>
+<?php endif; ?>
         <ul class="pagination justify-content-center">
           <?php for ($i = 1; $i <= $pages; $i++) : ?>
           <li class="page-item"><a class="page-link" href="?page=<?php echo $i; ?>&per-page=<?php echo $perPage; ?>">
